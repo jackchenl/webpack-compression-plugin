@@ -4,7 +4,7 @@ var path = require('path');
 var archiver = require('archiver');
 
 function handleFiles(filePath, fileName, archive, originPath) {
-  console.log('handleFiles-filePath=', filePath);
+  // console.log('handleFiles-filePath=', filePath);
   let content = fs.readFileSync(filePath, 'utf-8');
   if (content) {
     const curPrefix = filePath.replace(originPath, '').replace(fileName, '');
@@ -16,7 +16,7 @@ function handleFiles(filePath, fileName, archive, originPath) {
 }
 
 function handleDir(dirName, archive) {
-  console.log('handleDir-dirName=', dirName);
+  // console.log('handleDir-dirName=', dirName);
   archive.directory(`${dirName}/`, dirName);
 }
 
@@ -24,7 +24,7 @@ function fileDisplay(curPath, archive, originPath) {
   console.log('start execute readDir');
   const fileAry = fs.readdirSync(curPath);
   fileAry.forEach((ele) => {
-    console.log('ele=', ele);
+    // console.log('ele=', ele);
     if (/\.(js|css|less|DS_Store|conf|png|html|svg|eot|woff2|ttf|woff|LICENSE|json|jpg|jpeg|txt|md)$/.test(ele)) {
       handleFiles(`${curPath}/${ele}`, ele, archive, originPath);
     } else {
