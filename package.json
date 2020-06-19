@@ -1,10 +1,14 @@
 {
   "name": "webpack-compression-plugin",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "compress output files",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jackchenl/webpack-compression-plugin.git"
   },
   "keywords": [
     "webpack",

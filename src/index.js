@@ -25,7 +25,7 @@ function fileDisplay(curPath, archive, originPath) {
   const fileAry = fs.readdirSync(curPath);
   fileAry.forEach((ele) => {
     console.log('ele=', ele);
-    if (/\.(js|css|less|DS_Store|conf|png|html|svg|eot|woff2|ttf|woff|LICENSE|json)$/.test(ele)) {
+    if (/\.(js|css|less|DS_Store|conf|png|html|svg|eot|woff2|ttf|woff|LICENSE|json|jpg|jpeg|txt|md)$/.test(ele)) {
       handleFiles(`${curPath}/${ele}`, ele, archive, originPath);
     } else {
       const newPath = `${curPath}/${ele}`;
