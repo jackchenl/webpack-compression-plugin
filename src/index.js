@@ -5,7 +5,7 @@ var archiver = require('archiver');
 
 function handleFiles(filePath, fileName, archive, originPath) {
   // console.log('handleFiles-filePath=', filePath);
-  let content = fs.readFileSync(filePath, 'utf-8');
+  let content = fs.readFileSync(filePath);
   if (content) {
     const curPrefix = filePath.replace(originPath, '').replace(fileName, '');
     archive.append(content, {
@@ -25,12 +25,12 @@ function fileDisplay(curPath, archive, originPath) {
   const fileAry = fs.readdirSync(curPath);
   fileAry.forEach((ele) => {
     // console.log('ele=', ele);
-    if (/\.(js|css|less|DS_Store|conf|png|html|svg|eot|woff2|ttf|woff|LICENSE|json|jpg|jpeg|txt|md)$/.test(ele)) {
-      handleFiles(`${curPath}/${ele}`, ele, archive, originPath);
-    } else {
-      const newPath = `${curPath}/${ele}`;
+    const newPath = `${curPath}/${ele}`;
+    if(fs.statSync(newPath).isDirectory()){
       handleDir(ele, archive);
       fileDisplay(newPath, archive, originPath);
+    }else{
+      handleFiles(newPath, ele, archive, originPath);
     }
   });
 }
