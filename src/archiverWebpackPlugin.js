@@ -9,7 +9,7 @@ class ArchiverZipWebpackPlugin {
     apply(compiler) {
         const { originPath, outputPath } = this.options;
         if(!originPath || !outputPath){
-            throw new Error('请先设置archiver_webpack的originPath和outputPath属性')
+            throw new Error('请先设置webpack-compression-plugin的originPath和outputPath属性')
         }
         compiler.hooks.run.tap(pluginName, compilation => {
             // console.log('arguments=',arguments);
@@ -29,11 +29,19 @@ class ArchiverZipWebpackPlugin {
                     // console.log('arguments=',arguments);
             })
         })
-        compiler.plugin('done', function (compilation) {
+        compiler.plugin('done', function (stats) {
             // console.log('originPath=',originPath);
-            // console.log('outputPath=',outputPath);
+            // console.log('done--stats=',stats);
+            //发生错误时，不执行压缩文件夹的操作。
+            if((stats.compilation.errors || []).length){
+                console.log(stats.compilation.errors.join(';'))
+                return;
+            }
             Compress && Compress(originPath, outputPath);
-        })   
+        })
+	    compiler.plugin('failed', function (error) {
+           console.log(error);
+        })
     }
 }
 
